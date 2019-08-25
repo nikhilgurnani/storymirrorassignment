@@ -22,10 +22,48 @@ fastify.register(require('point-of-view'), {
   }
 });
 
+// Fastify ecosystem extention for API documentation
+fastify.register(require('fastify-swagger'), {
+  routePrefix: '/api/docs',
+  exposeRoute: true,
+  swagger: {
+    info: {
+      title: 'Story Mirror Chat App',
+      description: 'testing the api',
+      version: '0.1.0'
+    },
+    externalDocs: {
+      url: 'https://swagger.io',
+      description: 'Find more info here'
+    },
+    host: 'localhost:3000',
+    schemes: ['http'],
+    consumes: ['application/json'],
+    produces: ['application/json'],
+    tags: [
+      { name: 'user', description: 'User related end-points' },
+    ],
+    securityDefinitions: {
+      apiKey: {
+        type: 'apiKey',
+        name: 'apiKey',
+        in: 'header'
+      }
+    }
+  }
+});
+
+fastify.ready(err => {
+  if (err) throw err
+  fastify.swagger()
+});
+
 // Home Route
 fastify.get('/', async (request, response) => {
   return response.view('src/views/index.ejs');
 });
+
+fastify.register(require('./routes'), {prefix: 'api/'});
 
 
 // Bootstrap models
@@ -53,7 +91,7 @@ const start = async () => {
  */
 function connect() {
   mongoose.connection
-    .on('error', logger.log)
+    .on('error', (error)=>{logger.error(error)})
     .on('disconnected', connect)
     .once('open', start);
   if (process.env.MONGOOSE_DEBUG === 'true'){

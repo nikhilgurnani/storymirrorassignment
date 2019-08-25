@@ -6,8 +6,9 @@ An assignment done for StoryMirror as a part of interview process.
 ## Automated setup
 1. Open Terminal / CLI and run `git clone https://github.com/nikhilgurnani/storymirrorassignment`. After cloning, run `cd storymirrorassignment` 
 2. To be on the safer side, run `chmod u+x setup-app.sh`. You might have to use `sudo chmod u+x setup-app.sh` if the previous command gives a permission denied error.
-3. Run `setup-app.sh` or `./setup-app` command to execute shell script.
-4. If all goes well, run `npm run start`.
+3. Run MongoDB Server by opening a new terminal window and entering `mongod`.
+4. Run `setup-app.sh` or `./setup-app` command to execute shell script.
+5. If all goes well, run `npm run start`.
 
 ## Manual setup
 1. Open Terminal / CLI and run `gir clone https://github.com/nikhilgurnani/storymirrorassignment` . After cloning, run `cd storymirrorassignment` 
@@ -17,3 +18,4 @@ An assignment done for StoryMirror as a part of interview process.
 5. If all goes well, run `npm run start`.
 
 
+Postman Collection: `https://www.getpostman.com/collections/d19dacf94968d53cf025`

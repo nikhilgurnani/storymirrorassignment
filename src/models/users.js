@@ -13,7 +13,7 @@ const bcryptjs = require('bcryptjs');
  */
 
 const UserSchema = new Schema({
-  username: { type: String, default: '', trim: true, maxlength: 400, index: true },
+  username: { type: String, default: '', trim: true, maxlength: 400, text: true },
   pin: { type: String, maxlength: 1000 },
 }, {timestamps: true});
 
@@ -96,7 +96,12 @@ UserSchema.statics = {
    */
 
   search: function(keyword, options) {
-    const query = { '$text': { '$search': keyword } }
+    const query = {
+      'username': {
+        '$regex': keyword,
+        '$options': 'i'
+      }
+    };
     const page = options.page || 0;
     const limit = options.limit || 30;
     return this.find(query)
