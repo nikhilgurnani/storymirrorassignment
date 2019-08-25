@@ -79,7 +79,8 @@ require('./controllers/sockets')(io);
 const start = async () => {
   try {
     await fastify.listen(process.env.SERVER_PORT)
-    logger.info(`server listening on ${fastify.server.address().port}`)
+    logger.info(`server listening on ${fastify.server.address().port}`);
+    logger.info(`Access Webpage at http://localhost:${process.env.SERVER_PORT}/`);
   } catch (err) {
     logger.error(err)
     process.exit(1)
